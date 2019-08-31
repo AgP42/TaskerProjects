@@ -1,0 +1,486 @@
+
+<!--  Card Design adapted from  https://codepen.io/thebabydino/pen/eGvNjr by Ana Tudor-->
+
+<!-- colors code :
+body background : fdfdfd -> very light grey
+title and subtitle color : 2e2c3a -> dark aubergine
+
+dialogSlider background: #6d697f; -> couleur principale du slider
+couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité différente...
+
+ -->
+
+<style>
+
+	@charset "UTF-8";
+/*	/*@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"); */
+	@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+
+
+	@keyframes float {
+	  to {
+	    transform: translateY(0.75em);
+	  }
+	}
+
+	/* contains everything */
+	body {
+	  overflow: hidden;
+	  background: #fdfdfd;
+	  color: #2e2c3a;
+	  text-align: center;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: space-between;
+	  font: 400 1rem 'Roboto', sans-serif;
+	}
+
+	/* Contains the h3 with the title */
+	.wrapperTitle {
+		z-index: 10; /*allow it to be on top if overlap of elements*/
+	}
+
+	h2 { /*title*/
+		font-size: 24px;
+		font-weight: 400;
+		line-height: 29px;
+	}
+
+	p { /*subtitle*/
+	  /*font: 400 1rem/8 'Roboto', sans-serif;*/
+/*	  color: #2e2c3a;
+	  text-align: center;*/
+	}
+
+	/*** Contains all the slider, nightmare to understand ! ***/
+
+	.wrapperSlider *, .wrapperSlider :after, .wrapperSlider :before {
+	  box-sizing: inherit;
+	  position: absolute;
+	  margin: 0;
+	  padding: 0;
+	  border-radius: inherit;
+	  text-align: center;
+	  font: inherit;
+	  content: "";
+	}
+
+	.dialogSlider {
+	  --ratio: calc((var(--val) - var(--min))/(var(--max) - var(--min)));
+	  --co: calc(19deg + var(--ratio)*(1turn - 2*19deg));
+	  box-sizing: border-box;
+	  top: calc(50% - .5*6.75em);
+	  left: calc(50% - .5*6.75em);
+	  width: 6.75em;
+	  height: 6.75em;
+	  border-radius: 50%;
+	  box-shadow: 0 7px 40px 11px rgba(84, 81, 97, 0.4), inset 0 -6px 1px 2px rgba(0, 0, 0, 0.35);
+	  background: #6d697f;
+	  font: 300 3.5em/1 'Roboto', sans-serif; /*changing the 2.5em/1 here will change all the slider design size (except the temperature marker) But the 300 applied only to the value on the middle*/
+	  /*to change the marker, go to 	
+	  output[for='temp']:before {
+	 	transform: rotate(calc(var(--co) - .5turn)) translatey(calc(-8.775em - 0.46875em));
+	 	and change the 8.775em*/
+	}
+	.dialogSlider:before {
+	  top: calc(50% - .5*4.25em);
+	  left: calc(50% - .5*4.25em);
+	  width: 4.25em;
+	  height: 4.25em;
+	  box-shadow: 0 15px 35px 11px rgba(46, 44, 58, 0.6);
+	  background: #e3e4ed;
+	}
+
+	[id='temp'] {
+	  top: 0.375em;
+	  left: 0.375em;
+	  width: 6em;
+	  height: 6em;
+	  background: none;
+	  /* fix Chrome white */
+	  pointer-events: none;
+	  /* track styles */
+	}
+	[id='temp']::-webkit-slider-runnable-track, [id='temp']::-webkit-slider-thumb, [id='temp'] {
+	  -webkit-appearance: none;
+	}
+	[id='temp']::-webkit-slider-runnable-track {
+	  width: 100%;
+	  height: 100%;
+	  border-radius: 50%;
+	  transform: rotate(0.5turn);
+	  background: conic-gradient(#ff9e23, #ff4900 var(--co), transparent 0deg);
+	  background-color: #3a3749;
+	  -webkit-clip-path: polygon(32.78362% 0, 50% 50%, 67.21638% 0, 100% 0, 100% 100%, 0 100%, 0 0);
+	  clip-path: polygon(32.78362% 0, 50% 50%, 67.21638% 0, 100% 0, 100% 100%, 0 100%, 0 0);
+	  -webkit-mask: radial-gradient(rgba(0, 0, 0, 0) 2.875em, #000000 calc(1px + 2.875em));
+	}
+/*	[id='temp']::-moz-range-track {
+	  width: 100%;
+	  height: 100%;
+	  border-radius: 50%;
+	  transform: rotate(0.5turn);
+	  background: conic-gradient(#ff9e23, #ff4900 360deg, transparent 0deg);
+	  background-color: #3a3749;
+	  clip-path: polygon(32.78362% 0, 50% 50%, 67.21638% 0, 100% 0, 100% 100%, 0 100%, 0 0);
+	  mask: radial-gradient(rgba(0, 0, 0, 0) 2.875em, #000000 calc(1px + 2.875em));
+	}
+	[id='temp']::-moz-range-thumb {
+	  opacity: 0;
+	}*/
+
+	label[for='temp'] {
+	  right: 0;
+	  bottom: 0;
+	  left: 0;
+	  font: 300 1rem/4 'Roboto', sans-serif;
+	  color: #fdfdfd;
+	  /*text-transform: uppercase;*/
+	}
+
+	output[for='temp'] {
+	  top: calc(50% - .5*2.5em);
+	  left: calc(50% - .5*2.5em);
+	  width: 2.5em;
+	  height: 2.5em;
+	  box-shadow: 0 15px 35px 5px rgba(96, 93, 111, 0.3);
+	  background: #f8f9fa;
+	  line-height: 2.5em;
+	}
+	output[for='temp']:before {
+	  top: calc(50% - .5*3.5em);
+	  left: calc(50% - .5*3.5em);
+	  width: 3.5em;
+	  height: 3.5em;
+	  border-radius: 0;
+	  transform: rotate(calc(var(--co) - .5turn)) translatey(calc(-8.775em - 0.46875em));
+	  background: linear-gradient(90deg, rgba(0, 0, 0, 0) calc(50% - 2px), #ffffff calc(50% - 1px), #ffffff calc(50% + 1px), rgba(0, 0, 0, 0) calc(50% + 2px)) 50% 0.46875em/ 100% 0.46875em no-repeat, radial-gradient(rgba(260, 160, 40, 0.65), rgba(260, 160, 40, 0) 70%) 50% 0/100% 1.40625em no-repeat;
+	  color: var(--c, #fff);
+	  text-shadow: 1px 3px 3px var(--c, #302e38);
+	  font: 400 1rem/ 3.5em 'Roboto', sans-serif;
+	  transition: 0.3s;
+	  transition-property: color, text-shadow;
+	  counter-reset: temp var(--val);
+	  content: counter(temp);
+	}
+	.dialogSlider:not(:hover) input:not(:focus) ~ output[for='temp']:before {
+	  --c: transparent;
+	}
+	output[for='temp']:after {
+	  display: inline-block;
+	  margin-top: -.375em;
+	  font-size: .675em;
+	  content: "°";
+	}
+
+	button {
+	  overflow: hidden;
+	  --off: calc(50% - .5*0.875em);
+	  top: calc(50% - .5*0.875em);
+	  width: 0.875em;
+	  height: 0.875em;
+	  left: calc(var(--off) + var(--s)*1.6875em);
+	  border: none;
+	  background: none;
+	  color: #b9b6c8;
+	  border-radius: 0 !important;
+	  text-indent: 0.875em;
+	  white-space: nowrap;
+	  transition: color 0.3s;
+	  cursor: pointer;
+	}
+	button:focus, button:hover {
+	  outline: none;
+	  color: coral;
+	}
+	button:after {
+	  top: calc(50% - .5*0.21875em);
+	  left: calc(50% - .5*0.21875em);
+	  width: 0.21875em;
+	  height: 0.21875em;
+	  border: solid 0 currentcolor;
+	  border-width: 3px 0 0 3px;
+	  transform: rotate(calc(45deg + var(--s)*90deg));
+	}
+
+	.wrapperModes { /*div on top of the form, mandatory to keep it bottom*/
+		text-align: center;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+    	/*font-family: 'Roboto', sans-serif;*/
+  		display: flex;
+  		z-index: 5;
+	}
+
+	.dialogModes { /*id of the form that contains each radiobutton*/
+		display: flex;
+		padding:0;
+		margin: 0 auto 0 auto;
+		z-index: 6;
+		background: #fdfdfd;
+		width: 100%;
+		margin: auto;
+		padding: 30px;
+		min-width: 320px;
+		max-width: 540px;
+		box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+		border-radius: 3px;
+	}
+
+	.dialogModes div {
+	  position: relative;
+	  flex: 1;
+	  margin: 0 3px;
+	  z-index: 7;
+	}
+	.dialogModes input { /*to hide the default radio button display*/
+	  width: 100%;
+	  height: 60px;
+	  opacity: 0;
+	  z-index: 8;
+	}
+	.dialogModes label {
+	  position: absolute;
+	  z-index: 9;
+	  top: 0;
+	  left: 0;
+	  color: #2e2c3a;
+	  width: 100%;
+	  height: 100%;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  pointer-events: none;
+	  background: #e3e4ed;
+	  border-right: 2px solid #6d697f;
+	  border-bottom: 2px solid #6d697f;
+	  border-radius: 15px; /* a mettre en param de personnalisation */
+	}
+
+	.dialogModes input:checked + label {
+	  background: rgb(260, 160, 40);
+	  /*font-weight: 700;*/
+	  color: #fff;
+	  z-index: 9;
+	}
+
+</style>
+
+
+<!-- HTML -->
+
+<html>
+  	<head>
+  		<title>Thermostat</title>
+    
+	    <meta name="viewport" content="width=device-width, height=device-height,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+	    <meta 
+	      name="autotoolswebscreen" 
+	      type="variablejs" 
+	      group="Texts"
+	      id="title_text" 
+	      label="Title text" 
+	      description="The name of the thermostat." 
+	    />
+	    <meta 
+	      name="autotoolswebscreen" 
+	      type="variablejs"
+	      group="Texts" 
+	      id="subtitle_text" 
+	      label="Sub title text" 
+	      description="A subtitle." 
+	    />
+
+	    <meta 
+			name="autotoolswebscreen" 
+			group="Texts"  
+			type="variablejs" 
+			id="slider_label" 
+			label="Label on the bottom of the slider" 
+			description="What to be displayed at the bottom of the slider, can be the actual temperature or heater status for example." />
+
+	    <meta 
+	      name="autotoolswebscreen" 
+	      type="variablejs" 
+	      group="Values" 
+	      id="min" 
+	      label="Low limit" 
+	      description="The low limit on the slider. Defaults to 2." 
+	    />
+	    <meta 
+	      name="autotoolswebscreen" 
+	      type="variablejs" 
+	      group="Values" 
+	      id="max" 
+	      label="High limit" 
+	      description="The high limit on the slider. Defaults to 32." 
+	    />
+	    <meta 
+	      name="autotoolswebscreen" 
+	      type="variablejs" 
+	      group="Values" 
+	      id="initial_value" 
+	      label="Actual thermostat target" 
+	      description="The initial value of the slider. Defaults to 15." 
+	    />
+
+
+	    <meta 
+	      name="autotoolswebscreen" 
+	      type="variablejs" 
+	      id="valid_prefix" 
+	      label="Value prefix" 
+	      description="The prefix attached to the value when the value is validated (a click on it). If not set, mode=:=value will be send." 
+	    />
+
+	    <!-- Modes -->
+
+	    <meta name="autotoolswebscreen" group="Modes"  type="variablejs" id="mode_current" label="Mode actuel" description="Give here the tasker variable that represent the actual thermostat mode of the room" defaultValue="Auto"/>
+
+	    <meta name="autotoolswebscreen" group="Modes"  type="variablejs" id="modes" label="Modes" description="Availables thermostat mode, will be used for display and send commend" defaultValue="Auto, Eco, Manuel, Hors-Gel"/>
+
+  	</head>
+
+  	<body>
+  		<div class="wrapperTitle">
+	  		<h2 id="slider_title"></h2>
+	  		<p id="sub_title"></p>
+	  	</div>
+  		<div class="wrapperSlider">
+	  		<form class="dialogSlider" id="dialogSlider">
+	  		    <input id="temp" type="range" value="" min="" max=""/>
+	  		    <label for="temp"></label>
+	   		    <output for="temp"></output>
+	  		    <button id="decr" style="--s:-1;"></button>
+	  		    <button id="incr" style="--s:1;"></button>
+	  		</form>
+  		</div>
+  		
+  		<div class="wrapperModes">
+			<form class="dialogModes" id="dialogModes"></form>
+		</div>
+
+<!-- Javascript -->
+
+	<script src="autotoolsfunctions.js"></script>
+	<script src="autotools.js"></script>
+
+	<script type="text/javascript">
+
+		//values to use if user didn't defined them
+		AutoTools.setDefaultValues({
+		  "title_text":"",
+		  "subtitle_text":"",
+		  "min":"2",
+		  "max":"32",
+		  "initial_value":"15",
+		  "slider_label":"",
+		  "mode_current":"",
+		  "modes":"",
+		  "valid_prefix":""
+		});
+
+		// set title and subtitle according to user input
+		var slider_title = document.getElementById("slider_title");
+		slider_title.innerHTML = title_text;
+
+		var sub_title = document.getElementById("sub_title");
+		sub_title.innerHTML = subtitle_text;
+
+		// define our html elements on the slider
+		const _R = document.getElementById('temp'),
+		_L = document.querySelector('label'),
+		_O = document.querySelector('output'),
+		_F = _R.parentNode,
+		OPTS = ['min', 'max'];
+
+		// on initialise tout notre bazard avec les valeurs de config
+		let val = +initial_value; //notre valeur de départ, vient des config AutoTools
+		_F.style.setProperty('--val', val);
+		_F.style.setProperty('--max', max);
+		_F.style.setProperty('--min', min);
+		_R.setAttribute('value', val);
+		_R.setAttribute('min', min);
+		_R.setAttribute('max', max);
+		_O.textContent = val;
+		_L.textContent = slider_label;
+
+		let temperatureValChanged = false;
+		var inputFromTasker = AutoTools.fieldsToObject("modes");
+
+		/* will request the creation of each mode as a radiobutton */
+		for (i = 0; i < inputFromTasker.length; i++) { 
+			createMode(inputFromTasker[i].modes,i);
+		}
+
+		function createMode(label, index){
+
+			var radio = document.createElement("div");
+			radio.className = "md-radio";
+			
+			var input = document.createElement("input");
+			input.id = index;
+			input.type = "radio";
+			input.name="g";
+
+			/*Init the radiobutton corresponding to the current_mode given as a autotools param*/
+			if(label==mode_current){
+				input.setAttribute("checked","checked");
+			}
+			
+			radio.appendChild(input);
+			
+			var labelElem = document.createElement("label");
+			labelElem.htmlFor = index;
+			labelElem.innerHTML = label;
+			
+			//send command on radiobutton (mode) click
+			radio.onclick = function(){
+				mode_current = label; // save the new selected mode
+				if (temperatureValChanged) {
+					let cmd = mode_current + "=:=" + _R.value ; // will send prefix=:=mode_label=:=slider_value
+					AutoTools.sendCommand(cmd,valid_prefix);
+				} else {
+					AutoTools.sendCommand(mode_current,valid_prefix); // will send prefix=:=mode_label
+				}		
+			};
+			
+			radio.appendChild(labelElem);	
+					
+			var dialogBody = document.getElementById("dialogModes");
+			dialogBody.appendChild(radio);
+			
+		}
+
+		// called by a click on < or >
+		function update(s) {
+		  if (val !== +_R[OPTS[.5 * (1 + s)]]) {
+		    val += s;
+
+		    _F.style.setProperty('--val', val);
+		    _R.setAttribute('value', val);
+		    _O.textContent = val;
+
+		    temperatureValChanged = true;
+		  }
+		};
+
+		// the listener for our 3 actions
+		addEventListener('click', e => {
+		  const _T = e.target;
+
+		  if (_T.tagName.toLowerCase() === 'button') {
+		    e.preventDefault();
+		    update(+_T.style.getPropertyValue('--s'));
+		  } else if (_T.tagName.toLowerCase() === 'output') { // will send the command at the clic at the slider center
+			let cmd = mode_current + "=:=" + _R.value ; // will send prefix=:=mode_label=:=slider_value. We send the mode even if it wasn't changed, to know to which mode the new target temp has to correspond
+			AutoTools.sendCommand(cmd,valid_prefix);
+		  }
+		}, false);
+
+	</script>
+  </body>
+</html>
