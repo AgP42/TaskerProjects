@@ -1,5 +1,6 @@
 
-<!--  Card Design adapted from  https://codepen.io/thebabydino/pen/eGvNjr by Ana Tudor-->
+<!--  Card Design adapted from  https://codepen.io/thebabydino/pen/eGvNjr by Ana Tudor -->
+<!-- original design : https://dribbble.com/shots/3529251-Thermostat-Knob-UI -->
 
 <!-- colors code :
 body background : fdfdfd -> very light grey
@@ -13,7 +14,6 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 <style>
 
 	@charset "UTF-8";
-/*	/*@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"); */
 	@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
 
 
@@ -52,7 +52,7 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	  text-align: center;*/
 	}
 
-	/*** Contains all the slider, nightmare to understand ! ***/
+	/*** Contains all the slider ***/
 
 	.wrapperSlider *, .wrapperSlider :after, .wrapperSlider :before {
 	  box-sizing: inherit;
@@ -77,11 +77,12 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	  box-shadow: 0 7px 40px 11px rgba(84, 81, 97, 0.4), inset 0 -6px 1px 2px rgba(0, 0, 0, 0.35);
 	  background: #6d697f;
 	  font: 300 3.5em/1 'Roboto', sans-serif; /*changing the 2.5em/1 here will change all the slider design size (except the temperature marker) But the 300 applied only to the value on the middle*/
-	  /*to change the marker, go to 	
+	  /*to change the marker too, go to 	
 	  output[for='temp']:before {
 	 	transform: rotate(calc(var(--co) - .5turn)) translatey(calc(-8.775em - 0.46875em));
 	 	and change the 8.775em*/
 	}
+
 	.dialogSlider:before {
 	  top: calc(50% - .5*4.25em);
 	  left: calc(50% - .5*4.25em);
@@ -97,9 +98,9 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	  width: 6em;
 	  height: 6em;
 	  background: none;
-	  /* fix Chrome white */
+	  /* this here could allow to change the temperature also by sliding the slider, but how ??? */
+	  /*cursor: pointer;*/
 	  pointer-events: none;
-	  /* track styles */
 	}
 	[id='temp']::-webkit-slider-runnable-track, [id='temp']::-webkit-slider-thumb, [id='temp'] {
 	  -webkit-appearance: none;
@@ -109,26 +110,14 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	  height: 100%;
 	  border-radius: 50%;
 	  transform: rotate(0.5turn);
-	  background: conic-gradient(#ff9e23, #ff4900 var(--co), transparent 0deg);
+	  background: conic-gradient(#ff9e23, #ff4900 var(--co), transparent 0deg); /*la ligne orange qui grandit avec le pointeur*/
 	  background-color: #3a3749;
 	  -webkit-clip-path: polygon(32.78362% 0, 50% 50%, 67.21638% 0, 100% 0, 100% 100%, 0 100%, 0 0);
 	  clip-path: polygon(32.78362% 0, 50% 50%, 67.21638% 0, 100% 0, 100% 100%, 0 100%, 0 0);
 	  -webkit-mask: radial-gradient(rgba(0, 0, 0, 0) 2.875em, #000000 calc(1px + 2.875em));
 	}
-/*	[id='temp']::-moz-range-track {
-	  width: 100%;
-	  height: 100%;
-	  border-radius: 50%;
-	  transform: rotate(0.5turn);
-	  background: conic-gradient(#ff9e23, #ff4900 360deg, transparent 0deg);
-	  background-color: #3a3749;
-	  clip-path: polygon(32.78362% 0, 50% 50%, 67.21638% 0, 100% 0, 100% 100%, 0 100%, 0 0);
-	  mask: radial-gradient(rgba(0, 0, 0, 0) 2.875em, #000000 calc(1px + 2.875em));
-	}
-	[id='temp']::-moz-range-thumb {
-	  opacity: 0;
-	}*/
 
+	/* The label at the bottom of the slider */
 	label[for='temp'] {
 	  right: 0;
 	  bottom: 0;
@@ -138,6 +127,7 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	  /*text-transform: uppercase;*/
 	}
 
+	/* the selected temperature at the center of the slider */
 	output[for='temp'] {
 	  top: calc(50% - .5*2.5em);
 	  left: calc(50% - .5*2.5em);
@@ -163,9 +153,9 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	  counter-reset: temp var(--val);
 	  content: counter(temp);
 	}
-	.dialogSlider:not(:hover) input:not(:focus) ~ output[for='temp']:before {
+/*	.dialogSlider:not(:hover) input:not(:focus) ~ output[for='temp']:before {
 	  --c: transparent;
-	}
+	}*/
 	output[for='temp']:after {
 	  display: inline-block;
 	  margin-top: -.375em;
@@ -173,6 +163,7 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	  content: "°";
 	}
 
+	/* the 2 arrow button to increse or decrese the temperature */
 	button {
 	  overflow: hidden;
 	  --off: calc(50% - .5*0.875em);
@@ -203,13 +194,14 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	  transform: rotate(calc(45deg + var(--s)*90deg));
 	}
 
-	.wrapperModes { /*div on top of the form, mandatory to keep it bottom*/
+	/* The box at the bottom that contains the list of thermostat modes */
+
+	.wrapperModes { /*div on top of the modes form, mandatory to keep it bottom*/
 		text-align: center;
 		width: 100%;
 		height: 100%;
 		margin: 0;
 		padding: 0;
-    	/*font-family: 'Roboto', sans-serif;*/
   		display: flex;
   		z-index: 5;
 	}
@@ -239,7 +231,6 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	  width: 100%;
 	  height: 60px;
 	  opacity: 0;
-	  z-index: 8;
 	}
 	.dialogModes label {
 	  position: absolute;
@@ -267,7 +258,6 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	}
 
 </style>
-
 
 <!-- HTML -->
 
@@ -299,7 +289,7 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 			group="Texts"  
 			type="variablejs" 
 			id="slider_label" 
-			label="Label on the bottom of the slider" 
+			label="Label at the bottom of the slider" 
 			description="What to be displayed at the bottom of the slider, can be the actual temperature or heater status for example." />
 
 	    <meta 
@@ -310,6 +300,7 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	      label="Low limit" 
 	      description="The low limit on the slider. Defaults to 2." 
 	    />
+
 	    <meta 
 	      name="autotoolswebscreen" 
 	      type="variablejs" 
@@ -327,20 +318,19 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	      description="The initial value of the slider. Defaults to 15." 
 	    />
 
-
 	    <meta 
 	      name="autotoolswebscreen" 
 	      type="variablejs" 
 	      id="valid_prefix" 
 	      label="Value prefix" 
-	      description="The prefix attached to the value when the value is validated (a click on it). If not set, mode=:=value will be send." 
+	      description="The prefix attached to the value when the value is validated (a click on it). If not set, 'mode' or 'mode=:=value' (if value was changed) will be send." 
 	    />
 
 	    <!-- Modes -->
 
-	    <meta name="autotoolswebscreen" group="Modes"  type="variablejs" id="mode_current" label="Mode actuel" description="Give here the tasker variable that represent the actual thermostat mode of the room" defaultValue="Auto"/>
+	    <meta name="autotoolswebscreen" group="Modes"  type="variablejs" id="mode_current" label="Mode actuel" description="Give here the tasker variable that represent the actual thermostat mode of the room. It has to be exactelly the same name than the mode list name given after." defaultValue="Auto"/>
 
-	    <meta name="autotoolswebscreen" group="Modes"  type="variablejs" id="modes" label="Modes" description="Availables thermostat mode, will be used for display and send commend" defaultValue="Auto, Eco, Manuel, Hors-Gel"/>
+	    <meta name="autotoolswebscreen" group="Modes"  type="variablejs" id="modes" label="Modes list" description="Availables thermostat mode, will be used for display and send command. Do not add spaces." defaultValue="Auto,Eco,Manuel,Hors-Gel"/>
 
   	</head>
 
@@ -468,7 +458,7 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 		  }
 		};
 
-		// the listener for our 3 actions
+		// the listener for the 3 actions of the slider
 		addEventListener('click', e => {
 		  const _T = e.target;
 
@@ -480,6 +470,19 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 			AutoTools.sendCommand(cmd,valid_prefix);
 		  }
 		}, false);
+
+		/* Allow tasker to update the screen with thoses variables without full reload */
+		var updateValue = function(values){
+			slider_title.innerHTML = title_text;
+			sub_title.innerHTML = values.subtitle_text;
+			val = +values.initial_value; //notre valeur de départ, vient des config AutoTools
+			_O.textContent = values.val;
+			_L.textContent = values.slider_label;
+		}
+		//Because this function is present the "Update" option will appear in the Tasker configuration screen. All the values used as inputs there will be set in the "values" parameter here
+		var autoToolsUpdateValues = function(values){ // values represent all the datas from Tasker defined on the configuration
+			updateValue(values);
+		}
 
 	</script>
   </body>
