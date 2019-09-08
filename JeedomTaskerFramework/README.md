@@ -6,11 +6,21 @@ Ce Framework se focalise sur la communication Tasker -> Jeedom
 
 Pour la communication Jeedom -> Tasker, vous pouvez utiliser le plugin TaskerAutoRemote [Doc plugin TaskerAutoRemote](https://agp42.github.io/Jeedom-TaskerAutoremote/fr_FR/)
 
+Pré-requis : 
+
+- Tasker
+
+- AutoTools (pour lire du JSON - uniquement pour les lectures multiples des Info/Action)
+
+- AutoRemote pour recevoir des messages et notifications push de votre Jeedom (avec le plugin TaskerAutoRemote)
+
+- [ AutoVoice (pour envoyer des messages via "interaction" à Jeedom) ]
+
 # Liens
 
 [Faire des widget Zooper avec retour d'état](http://www.touteladomotique.com/index.php?option=com_content&view=article&id=1841:tuto-faire-des-widgets-avec-retour-detat-jeedom-zooper&catid=5:domotique&Itemid=89) - Ancien mais détaillé
 
-[Dynamic widgets with Zooper or KWGT using AutoRemote](https://forum.joaoapps.com/index.php?resources/tutorial-display-dynamically-widgets-kwgt-or-zooper-according-to-autoremote-messages.395/) - Une mise à jour du tuto ci-dessus incluant l'appli de plugin KWGT (en anglais)
+[Dynamic widgets with Zooper or KWGT using AutoRemote](https://forum.joaoapps.com/index.php?resources/tutorial-display-dynamically-widgets-kwgt-or-zooper-according-to-autoremote-messages.395/) - Une mise à jour du tuto ci-dessus incluant l'appli de widget KWGT (en anglais)
 
 [Receive featured notification from AutoRemote](https://forum.joaoapps.com/index.php?resources/tutorial-receive-featured-notifications-from-your-home-automatisation-system.393/) - Tuto dédié à la reception de notifications par Jeedom (ou tout autre systéme domotique) (en anglais)
 
@@ -20,9 +30,12 @@ Pour la communication Jeedom -> Tasker, vous pouvez utiliser le plugin TaskerAut
 
 # Installation
 
-1. Via TasketNet : a partir de votre appareil android ayant Tasker installé, cliquez sur ce lien pour charger le projet : [Framework Jeedom Tasker](https://taskernet.com/shares/?user=AS35m8kzmjsXFX0uPzJ%2Fne2qdLmlS2IhQiOVk%2FrAPxMTVSe%2BPHGS7URbKododS1jIWbmQzkGZyG7%2Bw%3D%3D&id=Project%3AFramework)
+1. Via TasketNet : 
 
-2. En XML
+a partir de votre appareil android ayant Tasker installé, cliquez sur ce lien pour charger le projet : [Framework Jeedom Tasker](https://taskernet.com/shares/?user=AS35m8kzmjsXFX0uPzJ%2Fne2qdLmlS2IhQiOVk%2FrAPxMTVSe%2BPHGS7URbKododS1jIWbmQzkGZyG7%2Bw%3D%3D&id=Project%3AFramework)
+
+2. En XML : 
+
 Télécharger le fichier suivant et importez le dans Tasker (clic long dans la barre du bas puis "Importer un projet") : [Framework Jeedom Tasker xml](https://raw.githubusercontent.com/AgP42/TaskerProjects/master/JeedomTaskerFramework/Framework.prj.xml)
 
 # Utilisation 
@@ -30,7 +43,7 @@ Télécharger le fichier suivant et importez le dans Tasker (clic long dans la b
 ## General - Initialisation
 
 Avant de pouvoir utiliser le framework il faut l'initialiser en lancant la tache "Config - A lancer !" qui vous demandera l'adresse IP de votre Jeedom ainsi que votre clé API.
-Elle se trouve dans le menu “Général” (en haut à droite, le logo engrenage) → “Configuration” → onglet “API” puis prendre la clef API globale de Jeedom.
+La clef API se trouve dans le menu “Général” (en haut à droite, le logo engrenage) → “Configuration” → onglet “API” puis prendre la clef API globale de Jeedom.
 
 ![](https://github.com/AgP42/TaskerProjects/blob/master/JeedomTaskerFramework/img/20190908_170639.jpg?raw=true)
 ![](https://github.com/AgP42/TaskerProjects/blob/master/JeedomTaskerFramework/img/20190908_170658.jpg?raw=true)
