@@ -3,20 +3,26 @@
 Ce projet consiste à créer une base (un framework) pour aider vos projets Tasker en lien avec la solution domotique Jeedom.
 
 Ce Framework se focalise sur la communication Tasker -> Jeedom
+
 Pour la communication Jeedom -> Tasker, vous pouvez utiliser le plugin TaskerAutoRemote [Doc plugin TaskerAutoRemote](https://agp42.github.io/Jeedom-TaskerAutoremote/fr_FR/)
 
 # Liens
 
-[Faire des widget Zooper avec retour d'état](http://www.touteladomotique.com/index.php?option=com_content&view=article&id=1841:tuto-faire-des-widgets-avec-retour-detat-jeedom-zooper&catid=5:domotique&Itemid=89)
+[Faire des widget Zooper avec retour d'état](http://www.touteladomotique.com/index.php?option=com_content&view=article&id=1841:tuto-faire-des-widgets-avec-retour-detat-jeedom-zooper&catid=5:domotique&Itemid=89) - Ancien mais détaillé
 
-[Receive featured notification from AutoRemote](https://forum.joaoapps.com/index.php?resources/tutorial-receive-featured-notifications-from-your-home-automatisation-system.393/)
+[Dynamic widgets with Zooper or KWGT using AutoRemote](https://forum.joaoapps.com/index.php?resources/tutorial-display-dynamically-widgets-kwgt-or-zooper-according-to-autoremote-messages.395/) - Une mise à jour du tuto ci-dessus incluant l'appli de plugin KWGT (en anglais)
 
-[Dynamic widgets with Zooper or KWGT using AutoRemote](https://forum.joaoapps.com/index.php?resources/tutorial-display-dynamically-widgets-kwgt-or-zooper-according-to-autoremote-messages.395/)
+[Receive featured notification from AutoRemote](https://forum.joaoapps.com/index.php?resources/tutorial-receive-featured-notifications-from-your-home-automatisation-system.393/) - Tuto dédié à la reception de notifications par Jeedom (ou tout autre systéme domotique) (en anglais)
+
+[Une interface de thermostat pour Tasker (AutoTools Web Screen)](https://github.com/AgP42/TaskerProjects/tree/master/AutoTools%20Web%20Screen/thermostat)
 
 [La documentation officielle de l'API HTTP, sur laquelle est basé le framework](https://jeedom.github.io/core/fr_FR/api_http)
 
 # Installation
 
+1. Via TasketNet : a partir de votre appareil android ayant Tasker installé, cliquez sur ce lien pour charger le projet : [Framework Jeedom Tasker](https://taskernet.com/shares/?user=AS35m8kzmjsXFX0uPzJ%2Fne2qdLmlS2IhQiOVk%2FrAPxMTVSe%2BPHGS7URbKododS1jIWbmQzkGZyG7%2Bw%3D%3D&id=Project%3AFramework)
+
+2. En XML
 Télécharger le fichier suivant sur votre appareil ayant Tasker installé : TOOOOODDDOOOOOOOO
 
 # Utilisation 
@@ -30,6 +36,10 @@ Elle se trouve dans le menu “Général” (en haut à droite, le logo engrenag
 ![](https://github.com/AgP42/TaskerProjects/blob/master/JeedomTaskerFramework/img/20190908_170658.jpg?raw=true)
 
 Vous pouvez aussi dans cette tâche changer le "PopUpActifs" à 0 si vous ne voulez pas les pop up d'information sur les commandes envoyés et les retours associés.
+
+![](https://github.com/AgP42/TaskerProjects/blob/master/JeedomTaskerFramework/img/A%20lancer.jpg?raw=true)
+
+![](https://github.com/AgP42/TaskerProjects/blob/master/JeedomTaskerFramework/img/overview-tasks.jpg?raw=true)
 
 ## Commande d'un scénario
 
@@ -92,6 +102,8 @@ Par exemple : « apiinfoactioncmd =:=506 ». Voir l’exemple dans la tâche « 
 
 pas de tache toute faite à utiliser, mais un exemple donné dans « InfoActionMultiple » et qui utilise le module Tasker « AutoTools » pour lire le json renvoyé par Jeedom. 
 
+![](https://github.com/AgP42/TaskerProjects/blob/master/JeedomTaskerFramework/img/InfoActionMultiples.jpg?raw=true)
+
 Pour l’utiliser : 
 
 1. A personnaliser : définir les commandes Jeedom que vous voulez lire dans un tableau, séparés par des virgules et aucun espace ! (Vous pouvez aussi les donner directement dans les étapes 2 et 3 sans passer par un tableau intermédiaire.
@@ -101,6 +113,7 @@ Pour l’utiliser :
 3. lire le JSON, il y a là 2 champs à personnaliser : 
 •	« Fields » qui doit être exactement identique à la liste donnée à l’étape précédente
 •	« Advanced » / «Variable Name » : c’est le nom à donner aux variables qui vont contenir les infos renvoyées par Jeedom. Par défaut Tasker assigne le nom de « Field », c’est-à-dire ici (dû à Jeedom) des chiffres. Sauf que Tasker n’aime pas avoir des variables dont le nom est un chiffre, donc dans notre cas il faut les définir à la main…
+![](https://github.com/AgP42/TaskerProjects/blob/master/JeedomTaskerFramework/img/json.jpg?raw=true)
 
 4. Vous pouvez ensuite garder vos variables individuelles ou les regrouper sous un tableau
 
