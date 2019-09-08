@@ -23,7 +23,7 @@ Pour la communication Jeedom -> Tasker, vous pouvez utiliser le plugin TaskerAut
 1. Via TasketNet : a partir de votre appareil android ayant Tasker installé, cliquez sur ce lien pour charger le projet : [Framework Jeedom Tasker](https://taskernet.com/shares/?user=AS35m8kzmjsXFX0uPzJ%2Fne2qdLmlS2IhQiOVk%2FrAPxMTVSe%2BPHGS7URbKododS1jIWbmQzkGZyG7%2Bw%3D%3D&id=Project%3AFramework)
 
 2. En XML
-Télécharger le fichier suivant sur votre appareil ayant Tasker installé : TOOOOODDDOOOOOOOO
+Télécharger le fichier suivant et importez le dans Tasker (clic long dans la barre du bas puis "Importer un projet") : [Framework Jeedom Tasker xml](https://raw.githubusercontent.com/AgP42/TaskerProjects/master/JeedomTaskerFramework/Framework.prj.xml)
 
 # Utilisation 
 
