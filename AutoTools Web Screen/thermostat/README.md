@@ -4,7 +4,9 @@ Here is how it looks like :
 
 # Installation
 
-On Tasker :
+From your android device with Tasker, clic that link to import the project : [thermostat web screen](https://autotoolsjoaomgcd.appspot.com/_ah/api/webscreens/v1/screens/thermostat)
+
+Or on Tasker :
 
 - create a new task 
 - add : "Plugin"/"AutoTools"/"Web Screen"
