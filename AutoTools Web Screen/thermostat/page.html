@@ -11,6 +11,8 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 
  -->
 
+ <!-- Versiion 1.1 : add choice for the button color as requested here https://github.com/AgP42/TaskerProjects/issues/1 -->
+
 <style>
 
 	@charset "UTF-8";
@@ -251,7 +253,7 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 	}
 
 	.dialogModes input:checked + label {
-	  background: rgb(260, 160, 40);
+	 /* background: #FFA028;*/
 	  /*font-weight: 700;*/
 	  color: #fff;
 	  z-index: 9;
@@ -328,9 +330,14 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 
 	    <!-- Modes -->
 
-	    <meta name="autotoolswebscreen" group="Modes"  type="variablejs" id="mode_current" label="Mode actuel" description="Give here the tasker variable that represent the actual thermostat mode of the room. It has to be exactelly the same name than the mode list name given after." defaultValue="Auto"/>
-
 	    <meta name="autotoolswebscreen" group="Modes"  type="variablejs" id="modes" label="Modes list" description="Availables thermostat mode, will be used for display and send command. Do not add spaces." defaultValue="Auto,Eco,Manuel,Hors-Gel"/>
+
+	    <meta name="autotoolswebscreen" group="Modes"  type="variablejs" id="mode_current" label="Actual mode" description="Give here the tasker variable that represent the actual thermostat mode of the room. It has to be exactelly the same name than the mode list name given after." defaultValue="Auto"/>
+
+	    <meta name="autotoolswebscreen" type="variablejs" group="Modes" 
+	    id="accentcolor" isColor="true" label="Color" 
+	    description="Color for the selected mode"
+	    defaultValue="#FFA028" />
 
 	    <!-- Apparence to do ! -->
 	<!--     <meta name="autotoolswebscreen" type="variablejs" group="Colors" 
@@ -384,7 +391,8 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 		  "slider_label":"",
 		  "mode_current":"",
 		  "modes":"",
-		  "valid_prefix":""
+		  "valid_prefix":"",
+		  "accentcolor":"#FFA028"
 		});
 
 		// set title and subtitle according to user input
@@ -420,6 +428,7 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 			createMode(inputFromTasker[i].modes,i);
 		}
 
+
 		function createMode(label, index){
 
 			var radio = document.createElement("div");
@@ -429,21 +438,27 @@ couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité dif
 			input.id = index;
 			input.type = "radio";
 			input.name="g";
+	
+			var labelElem = document.createElement("label");
+			labelElem.htmlFor = index;
+			labelElem.innerHTML = label;
 
 			/*Init the radiobutton corresponding to the current_mode given as a autotools param*/
 			if(label==mode_current){
 				input.setAttribute("checked","checked");
+				labelElem.style.backgroundColor = accentcolor; // set the accentcolor defined by the user
+				labelElem.id = "checkedmode"; // remember it by setting an id
 			}
 			
 			radio.appendChild(input);
-			
-			var labelElem = document.createElement("label");
-			labelElem.htmlFor = index;
-			labelElem.innerHTML = label;
-			
 			//send command on radiobutton (mode) click
 			radio.onclick = function(){
 				mode_current = label; // save the new selected mode
+				labelElem.style.backgroundColor = accentcolor; // set the accentcolor defined by the user
+				const previouschecked = document.getElementById('checkedmode'); // get the previous checked mode
+				previouschecked.style.backgroundColor = '#e3e4ed'; //set its background grey again
+				previouschecked.id = "uncheckedmode"; // change it's id
+				labelElem.id = "checkedmode"; // remember the new one
 				if (temperatureValChanged) {
 					let cmd = mode_current + "=:=" + _R.value ; // will send prefix=:=mode_label=:=slider_value
 					AutoTools.sendCommand(cmd,valid_prefix);
