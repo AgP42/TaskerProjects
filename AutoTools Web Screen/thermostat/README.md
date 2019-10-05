@@ -36,4 +36,5 @@ https://github.com/AgP42/TaskerProjects/issues
 # Changelog
 
 v1.0 - 31 aug 2019 - initial version
+
 v1.1 - 05 oct 2019 - add user config allowing to change the "selected mode" color.
