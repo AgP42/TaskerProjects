@@ -1,0 +1,269 @@
+
+<!--  Card Design adapted from  https://codepen.io/thebabydino/pen/eGvNjr by Ana Tudor -->
+<!-- original design : https://dribbble.com/shots/3529251-Thermostat-Knob-UI -->
+
+<!-- colors code :
+body background : fdfdfd -> very light grey
+title and subtitle color : 2e2c3a -> dark aubergine
+
+dialogSlider background: #6d697f; -> couleur principale du slider
+couleur secondaire (orange), 3 fois : rgb 260, 160, 40 et avec de l'opacité différente...
+
+ -->
+
+ <!-- Versiion 1.1 : add choice for the button color as requested here https://github.com/AgP42/TaskerProjects/issues/1 -->
+
+<style>
+	input[type=text] {
+	  font-family: "proxima-nova", "Lato", sans-serif;
+	  font-size: 1.3em;
+	  font-weight: 600;
+	  margin: 20px 25px;
+	  width: 250px;
+	  display: block;
+	  border: none;
+	  padding: 5px 0;
+	  border-bottom: solid 1px white;
+	  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+	  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, white 4%);
+	  background-position: -250px 0;
+	  background-size: 250px 100%;
+	  background-repeat: no-repeat;
+	  color: #cccccc;
+	}
+	input[type=text]:focus, input[type=text]:valid {
+	  box-shadow: none;
+	  outline: none;
+	  background-position: 0 0;
+	}
+
+	input[type=number] {
+	  font-size: 0.9em;
+	  font-family: "proxima-nova", "Lato", sans-serif;
+	  font-weight: 600;
+	  margin: 7px 2px 15px 25px;
+	  width: 50px;
+	  display: block;
+	  border: none;
+	  padding: 0 0 5px 0;
+	  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+	  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, white 4%);
+	  color: #cccccc;
+	}
+	input[type=number]:focus, input[type=number]:valid {
+	  box-shadow: none;
+	  outline: none;
+	  background-position: 0 0;
+	}
+
+	*:focus {
+	  outline: none;
+	}
+
+	#validate {
+	  margin: 0 0 0 20px;
+	  font-size: 35px;
+	}
+
+	i {
+	  margin: 0 15px;
+	  cursor: pointer;
+	}
+
+	.inline {
+	  display: flex;
+	  margin: 0 80px;
+	}
+
+	body {
+	  font-family: "proxima-nova", "Lato", sans-serif;
+	}
+	body #project-wrapper {
+	  height: 100vh;
+	  display: flex;
+	  display: -webkit-flex;
+	  -webkit-align-items: center;
+	  align-items: center;
+	  -webkit-justify-content: center;
+	  justify-content: center;
+	}
+	body #project-wrapper #project-container {
+	  color: white;
+	  /* height: auto; */
+	  height: 220px;
+	  min-width: 300px;
+	  width: 300px;
+	  position: relative;
+	  z-index: 2;
+	  overflow: hidden;
+	  -webkit-box-shadow: 0px 3px 15px -1px rgba(0, 0, 0, 0.5);
+	  -moz-box-shadow: 0px 3px 15px -1px rgba(0, 0, 0, 0.5);
+	  box-shadow: 0px 3px 15px -1px rgba(0, 0, 0, 0.5);
+	}
+	body #project-wrapper #project-container #overlay {
+	  position: absolute;
+	  height: calc(100% + 1px);
+	  width: calc(100% + 1px);
+	  z-index: 2;
+	  background: -moz-linear-gradient(-45deg, #333333 0%, #222222 100%);
+	  /* FF3.6-15 */
+	  background: -webkit-linear-gradient(-45deg, #333333 0%, #222222 100%);
+	  /* Chrome10-25,Safari5.1-6 */
+	  background: linear-gradient(135deg, #333333 0%, #222222 100%);
+	  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	  opacity: .85;
+	}
+	body #project-wrapper #project-container #content {
+	  text-align: center;
+	  position: relative;
+	  z-index: 3;
+	}
+	body #project-wrapper #project-container #content h2 {
+	  font-size: 1.3em;
+	  margin: 35px 0 0 0;
+	  font-weight: 600;
+	}
+	body #project-wrapper #project-container #content h3 {
+	  margin: 7px 0 15px 0;
+	  font-size: 0.9em;
+	  opacity: .4;
+	}
+	body #project-wrapper #project-container #content #controls {
+	  height: 50px;
+	  margin: 20px 0;
+	  display: flex;
+	  display: -webkit-flex;
+	  -webkit-align-items: center;
+	  align-items: center;
+	  -webkit-justify-content: center;
+	  justify-content: center;
+	}
+	body #project-wrapper #project-container #content #controls .column {
+	  float: left;
+	}
+
+
+</style>
+
+<!-- HTML -->
+
+<html>
+  	<head>
+  		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  		<title>MagicMirror² - SmartWebDisplay</title>
+    
+	    <meta name="viewport" content="width=device-width, height=device-height,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+	    <meta 
+	      name="autotoolswebscreen" 
+	      type="variablejs" 
+	      group="Config"
+	      id="title_text" 
+	      label="Title" 
+	      description="If you want to change the title" 
+	      defaultValue="MagicMirror² - SmartWebDisplay"
+	    />
+
+	    <meta 
+	      name="autotoolswebscreen" 
+	      type="variablejs" 
+	      group="Config"
+	      id="url" 
+	      label="URL" 
+	      description="Url to be displayed by default (you can set a Tasker Variable that represent the last URL requested)" 
+	      defaultValue="https://magicmirror.builders/"
+	    />
+	
+  	</head>
+
+  	<body>
+
+  		<div id="project-wrapper">
+  				<div id="project-container">
+  				<div id="overlay"></div>
+  				<div id="content">
+  					
+  					<h3  id="title">MagicMirror² - SmartWebDisplay</h3>
+  					<input id="swd_url" placeholder="URL" type="text" required="">
+  					<div class="inline">
+  						<h3>Update: </h3>
+  						<input id="swd_interval" type="number" value="1"></input>	
+  						<h3> min</h3>
+  		  			<i id="validate" class="material-icons">check</i>
+  		            
+  					</div>
+  					<div id="controls">
+  						<div class="column"><i id="prev" class="material-icons">skip_previous</i></div>
+  						<div class="column"><i id="play" class="material-icons">play_arrow</i></div>
+  						<div class="column"><i id="pause" class="material-icons">pause</i></div>
+  						<div class="column"><i id="stop" class="material-icons">stop</i></div>
+  						<div class="column"><i id="next" class="material-icons">skip_next</i></div>
+  					</div>
+  					
+  				</div>
+  			</div>
+  		</div>
+
+<!-- Javascript -->
+
+	<script src="autotoolsfunctions.js"></script>
+	<script src="autotools.js"></script>
+
+	<script type="text/javascript">
+
+		//values to use if user didn't defined them
+		AutoTools.setDefaultValues({
+			"title_text":"MagicMirror² - SmartWebDisplay",
+			"url":"https://magicmirror.builders/",
+		});
+
+		// set title according to user input
+		var title = document.getElementById("title");
+		title.innerHTML = title_text;
+
+		// set url according to user input
+		var swd_url = document.getElementById("swd_url");
+		//swd_url.placeholder = url;
+		swd_url.value = url;
+
+		var swd_interval = document.getElementById("swd_interval");
+
+		// get buttons id
+		var swd_validate = document.getElementById("validate");
+		var swd_prev = document.getElementById("prev");
+		var swd_play = document.getElementById("play");
+		var swd_pause = document.getElementById("pause");
+		var swd_stop = document.getElementById("stop");
+		var swd_next = document.getElementById("next");
+
+		// add listeners and actions
+		swd_validate.addEventListener('click', e => {
+			let cmd = swd_url.value + "=:=" + swd_interval.value ; // will send prefix=:=mode_label=:=slider_value
+			//title.innerHTML = cmd;
+			AutoTools.sendCommand(cmd,"swd=:=url");
+		}, false);
+
+		swd_prev.addEventListener('click', e => {
+			AutoTools.sendCommand("prev","swd");
+		}, false);
+
+		swd_play.addEventListener('click', e => {
+			AutoTools.sendCommand("play","swd");
+		}, false);
+
+		swd_pause.addEventListener('click', e => {
+			AutoTools.sendCommand("pause","swd");
+		}, false);
+
+		swd_stop.addEventListener('click', e => {
+			AutoTools.sendCommand("stop","swd");
+		}, false);
+
+		swd_next.addEventListener('click', e => {
+			AutoTools.sendCommand("next","swd");
+		}, false);
+
+	</script>
+  </body>
+</html>
